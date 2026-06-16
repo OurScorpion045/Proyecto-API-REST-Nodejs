@@ -1,17 +1,24 @@
 import mysql from "mysql2/promise";
 
-class Database {
-    connection() {
+export default class Database {
+    constructor(host, user, password, database) {
+        this.host = "localhost";
+        this.user = "root";
+        this.password = "";
+        this.database = "futbolistas";
+    }
+
+    async connection() {
         const connection = await mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "",
-            database: "futbolistas"
+            host: this.host,
+            user: this.user,
+            password: this.password,
+            database: this.database
         });
         return connection;
     }
 
-    endConnection(connection) {
+    async endConnection(connection) {
         await connection.end();
     }
 }
