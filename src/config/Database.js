@@ -1,15 +1,18 @@
 import mysql from "mysql2/promise";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default class Database {
     constructor() {
-        this.host = "localhost";
-        this.user = "root";
-        this.password = "";
-        this.database = "futbolistas";
+        this.host = process.env.MYSQL_HOST;
+        this.user = process.env.MYSQL_USER;
+        this.password = process.env.MYSQL_PASSWORD;
+        this.database = process.env.MYSQL_DATABASE;
     }
 
     async connection() {
-        return await mysql.createConnection({
+        return await mysql.createPool({
             host: this.host,
             user: this.user,
             password: this.password,
