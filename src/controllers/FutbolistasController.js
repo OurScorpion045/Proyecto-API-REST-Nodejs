@@ -41,7 +41,38 @@ export class FutbolistasController {
             res.writeHead(200, {
                 'Content-Type': 'application/json'
             })
+            res.end(JSON.stringify(mensajeExito));
         } catch(err) {
+            res.writeHead(500);
+            res.end(JSON.stringify({
+                error: err.message
+            }));
+        }
+    }
+
+    static async updateFutbolista(req, res, id, nombre, posicion, numero, edad, equipo) {
+        try {
+            const mensajeExito = await FutbolistasModel.updateFutbolista(id, nombre, posicion, numero, edad, equipo);
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+            res.end(JSON.stringify(mensajeExito));
+        } catch (err) {
+            res.writeHead(500);
+            res.end(JSON.stringify({
+                error: err.message
+            }));
+        }
+    }
+
+    static async deleteFutbolista(req, res, id) {
+        try {
+            const mensajeExito = await FutbolistasModel.deleteFutbolista(id);
+            res.write(200, {
+                'Content-Type': 'application/json'
+            });
+            res.end(JSON.stringify(mensajeExito));
+        } catch (err) {
             res.writeHead(500);
             res.end(JSON.stringify({
                 error: err.message
