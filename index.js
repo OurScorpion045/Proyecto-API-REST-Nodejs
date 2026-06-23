@@ -1,4 +1,7 @@
 import http from "node:http";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const processRequest = async (req, res) => {
     res.setHeader("Content-type", "text/html");
