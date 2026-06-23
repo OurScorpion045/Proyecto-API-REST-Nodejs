@@ -1,7 +1,5 @@
 import mysql from "mysql2/promise";
-import dotenv from "dotenv";
-
-dotenv.config();
+import "dotenv/config";
 
 export default class Database {
     constructor() {
@@ -11,16 +9,12 @@ export default class Database {
         this.database = process.env.MYSQL_DATABASE;
     }
 
-    async connection() {
+    static async connection() {
         return await mysql.createPool({
             host: this.host,
             user: this.user,
             password: this.password,
             database: this.database
         });
-    }
-
-    async endConnection(connection) {
-        await connection.end();
     }
 }
