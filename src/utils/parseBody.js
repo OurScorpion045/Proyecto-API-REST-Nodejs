@@ -7,7 +7,11 @@ export const parseBody = (req) => {
         });
 
         req.on('end', () => {
-            resolve(JSON.parse(body));
+            try {   
+                resolve(JSON.parse(body));
+            } catch (err) {
+                reject(new Error("JSON invalido"));
+            }
         });
 
         req.on('error', reject);
