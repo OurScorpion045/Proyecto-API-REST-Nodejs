@@ -1,4 +1,4 @@
-import FutbolistasModel from "../models/FutbolistasModel.js";
+import { FutbolistasModel } from "../models/FutbolistasModel.js";
 
 export class FutbolistasController {
 
