@@ -1,11 +1,23 @@
 import http from "node:http";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { futbolistasRoute } from "./src/routes/FutbolistasRoute.js";
 
 const processRequest = async (req, res) => {
-    res.setHeader("Content-type", "text/html");
-    res.end("Hello world");
+    let url = req.url;
+    const urlSplit = url.split("/");
+    urlSplit.shift();
+
+    const route = urlSplit[0];
+
+
+    switch (route) {
+        case "futbolistas":
+            await futbolistasRoute(req, res);
+            break;
+        default:
+            res.writeHead(404);
+            res.end("Ruta no encontrada");
+            break;
+    }
 }
 
 const server = http.createServer(processRequest);
