@@ -3,15 +3,11 @@ import { parseBody } from "../utils/parseBody.js";
 
 export const futbolistasRoute = async (req, res) => {
     let method = req.method;
-    let url = req.url.trim("/");
-    let urlSplit = url.split("/");
-    let id = '';
+    const url = req.url;
+    const urlSplit = url.split("/");
+    urlSplit.shift();
 
-    if (typeof(urlSplit[-1] === "number")) {
-        id = urlSplit[-1];
-    } else {
-        id = null
-    }
+    const id = urlSplit[1] ?? null;
 
     switch (method) {
         case "GET":
@@ -22,13 +18,13 @@ export const futbolistasRoute = async (req, res) => {
             await FutbolistasController.getAllFutbolistas(req, res)
             break;
         case "POST":
-            const data = await parseBody(req);
-            const arrayData = Object.entries(data)
+            const dataPost = await parseBody(req);
+            const arrayDataPost = Object.entries(data)
             await FutbolistasController.insertFutbolista(req, res, arrayData['nombre'], arrayData['posicion'], arrayData['numero'], arrayData['edad'], arrayData['equipo']);
             break;
         case "PUT":
-            const data = await parseBody(req);
-            const arrayData = Object.entries(data);
+            const dataPut = await parseBody(req);
+            const arrayDataPut = Object.entries(data);
             await FutbolistasController.updateFutbolista(req, res, id, arrayData['nombre'], arrayData['posicion'], arrayData['numero'], arrayData['edad'], arrayData['equipo']);
             break;
         case "DELETE":
